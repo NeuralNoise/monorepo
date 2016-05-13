@@ -8,8 +8,6 @@
 #        This ensures onion-services is running.
 #        This does a cd into the project directory so all paths should just work!
 
-
-
 services_compose = 'docker-compose -f onion-services/docker-compose.yml'
 services_running = `#{services_compose} ps | grep Damn`.chomp.empty?
 if services_running

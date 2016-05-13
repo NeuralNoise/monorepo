@@ -9,7 +9,7 @@
 #        This does a cd into the project directory so all paths should just work!
 
 services_compose = 'docker-compose -f onion-services/docker-compose.yml'
-services_running = `#{services_compose} ps | grep Up`.chomp.empty?
+services_running = !`#{services_compose} ps | grep Up`.chomp.empty?
 if services_running
   puts "Detected onion-services already running"
 else

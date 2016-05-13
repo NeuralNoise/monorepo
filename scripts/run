@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+# Usage: scripts/run PROJECT SCRIPT [args]
+#        scripts/run onion serve
+#        scripts/run onion link --python django-bulbs
+#        etc.
+#
+#        This ensures onion-services is running.
+#        This does a cd into the project directory so all paths should just work!
+
+
+
+services_compose = 'docker-compose -f onion-services/docker-compose.yml'
+services_running = `#{services_compose} ps | grep Damn`.chomp.empty?
+if services_running
+  puts "Detected onion-services already running"
+else
+  puts "Starting onion-services..."
+  system "#{services_compose} up -d"
+end
+
+system "cd #{ARGV.shift} && scripts/#{ARGV.shift} #{ARGV.join(' ')}"

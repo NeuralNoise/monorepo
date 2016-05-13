@@ -8,6 +8,8 @@ So far, not so bad.
 ```
 git clone --recursive git@github.com:theonion/monorepo.git
 scripts/run onion init
+scripts/run videohub init
+scripts/run tunic init
 ```
 
 You can run any script in a project's `scripts/` directory.

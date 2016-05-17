@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+`git status`.each_line do |line|
+  if line.match /modified:[ ]+([\w-]+) \(/
+    puts
+    puts "Changes in: #{$1}"
+    puts "=" * 20
+    system "cd #{$1} && git status && cd .."
+  end
+end

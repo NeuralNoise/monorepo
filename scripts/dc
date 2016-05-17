@@ -1,0 +1,2 @@
+#!/usr/bin/env ruby
+system "cd #{ARGV.shift} && docker-compose #{ARGV.join(' ')} && cd .."

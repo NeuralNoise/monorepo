@@ -24,6 +24,16 @@ scripts/run onion init
 ## scripts
 
 ```
+git submodule foreach SHELL_COMMAND
+
+Do anything in every submodule
+
+git submodule foreach ls
+git submodule foreach git status
+git submodule foreach rm -rf ./ # NO!, but you could
+```
+
+```
 scripts/run PROJECT SCRIPT [args]
 
 You can run any script in a sub-project's `scripts/` directory:

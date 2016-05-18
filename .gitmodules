@@ -17,6 +17,7 @@
 [submodule "videohub"]
 	path = videohub
 	url = git@github.com:theonion/videohub.git
+	branch = master
 [submodule "tunic"]
 	path = tunic
 	url = git@github.com:theonion/tunic.git
@@ -24,9 +25,12 @@
 [submodule "clickhole"]
 	path = clickhole
 	url = git@github.com:theonion/clickhole.git
+	branch = master
 [submodule "avclub"]
 	path = avclub
 	url = git@github.com:theonion/avclub.git
+	branch = master
 [submodule "starwipe"]
 	path = starwipe
 	url = git@github.com:theonion/starwipe.git
+	branch = master

@@ -1,8 +1,15 @@
 #!/usr/bin/env ruby
 
 red = "\e[0;31m"
+green= "\e[0;32m"
 cyan = "\e[0;36m"
-nocolor = "\e[0m"
+
+boldred = "\e[4;31m"
+boldgreen= "\e[4;32m"
+boldcyan = "\e[4;36m"
+
+noformat = "\e[0m"
+nocolor = "\e[39m"
 
 repos = {}
 `git submodule foreach git branch`.scan(/Entering '([-\w]+)'[^*]+\* ([-\w]+)/m).each  do |repo, branch|
@@ -21,7 +28,7 @@ end
 
 repos.each do |name, repo|
   if repo[:changes]
-    puts "#{cyan}#{name} #{nocolor}@ #{red}#{repo[:branch]}#{nocolor} #{repo[:change_type]}"
+    puts "#{boldcyan}#{name.ljust(longest_repo_name)} #{nocolor}@ #{boldred}#{repo[:branch]}#{nocolor} #{boldgreen}#{repo[:change_type]}#{noformat}"
     system "cd #{name} && git status --short && cd .."
     puts
     repos.delete(name)
@@ -29,5 +36,5 @@ repos.each do |name, repo|
 end
 
 repos.each do |name, repo|
-  puts "#{cyan}#{name.rjust(longest_repo_name)} #{nocolor}@ #{red}#{repo[:branch]}#{nocolor} (clean)"
+  puts "#{cyan}#{name.ljust(longest_repo_name)} #{nocolor}@ #{red}#{repo[:branch]}#{noformat} (clean)"
 end

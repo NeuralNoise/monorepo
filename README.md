@@ -18,6 +18,7 @@ Run `docker ps` to make sure all your other containers are stopped.
 ```
 git clone --recursive git@github.com:theonion/monorepo.git
 cd monorepo
+scripts/update-modules
 scripts/run onion init
 ```
 

@@ -1,10 +1,33 @@
 #!/usr/bin/env ruby
 
+red = "\e[0;31m"
+cyan = "\e[0;36m"
+nocolor = "\e[0m"
+
+repos = {}
+`git submodule foreach git branch`.scan(/Entering '([-\w]+)'[^*]+\* ([-\w]+)/m).each  do |repo, branch|
+  repos[repo] = { branch: branch }
+end
+
+longest_repo_name = 0
+repos.each{|name, repo| longest_repo_name = name.length if name.length > longest_repo_name }
+
 `git status`.each_line do |line|
-  if line.match /modified:[ ]+([\w-]+) \(/
-    puts
-    puts "Changes in: #{$1}"
-    puts "=" * 20
-    system "cd #{$1} && git status && cd .."
+  if line.match(/modified:[ ]+([\w-]+) (\([^)]+\))?/)
+    repos[$1][:changes] = true
+    repos[$1][:change_type] = $2
   end
+end
+
+repos.each do |name, repo|
+  if repo[:changes]
+    puts "#{cyan}#{name} #{nocolor}@ #{red}#{repo[:branch]}#{nocolor} #{repo[:change_type]}"
+    system "cd #{name} && git status --short && cd .."
+    puts
+    repos.delete(name)
+  end
+end
+
+repos.each do |name, repo|
+  puts "#{cyan}#{name.rjust(longest_repo_name)} #{nocolor}@ #{red}#{repo[:branch]}#{nocolor} (clean)"
 end

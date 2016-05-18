@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+branches = `git submodule foreach git branch`
+branches.scan(/Entering '([\w]+)'[^*]+\* ([-\w]+)/m).each do |repo, branch|
+  puts "#{repo.rjust(20)} @ #{branch}"
+end
+
